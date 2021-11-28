@@ -1,6 +1,8 @@
 use std::collections::HashMap;
 use std::rc::Rc;
 
+// todo: struct Recipe
+
 struct Ingredient {
     name: String,
     amount: f32,
@@ -8,57 +10,47 @@ struct Ingredient {
 }
 
 impl Ingredient {
-    fn combine (&self, other: Ingredient) {
+    fn combine (&self, other: Ingredient) -> Ingredient {
         if (self.name == other.name) {
-            // combine
+            return Ingredient {
+                name: self.name.clone(),
+                // todo: normalize the amounts across units
+                amount: self.amount + other.amount,
+                unit: self.unit.clone()
+            }
 
         } else {
             // can't combine
+            panic!("these things are not the same");
         }
     }
 }
 
-struct Unit {
-    unit_type: MeasurementType,
-    // todo: can have multiple identifiers - e.g. mg and milligrams
-    identifier: String,
-    // if None, we are the base unit
-    // would be better to self reference?
-    base_unit: Option<Rc<Unit>>, //Option<Box<Unit>>,
-    ratio_to_base: u32
-}
-
-// how do we enforce that all Units of a given type have the same base_unit? - constructor
-// do we even need to?
-enum MeasurementType {
-    weight,
-    volume,
-    count
+#[derive(Clone)]
+enum Unit {
+    weight(String, u32),
+    volume(String, u32),
+    count(String, u32)
 }
 
 fn main() {
-    let milligram = Unit {
-        unit_type: MeasurementType::weight,
-        identifier: String::from("mg"),
-        base_unit: Option::None,
-        ratio_to_base: 1
+    let mg = Unit::weight(String::from("mg"), 1);
+    let g = Unit::weight(String::from("g"), 1000);
+    let kg = Unit::weight(String::from("kg"), 1000 * 1000);
+
+    let sugar1 = Ingredient {
+        name: String::from("sugar"),
+        amount: 3.0,
+        unit: g.clone()
     };
 
-    let mg_ref = Rc::new(milligram);
-
-    let gram = Unit {
-        unit_type: MeasurementType::weight,
-        identifier: String::from("g"),
-        base_unit: Option::Some(Rc::clone(&mg_ref)),
-        ratio_to_base: 1000
-    };
-    
-    let kilogram = Unit {
-        unit_type: MeasurementType::weight,
-        identifier: String::from("kg"),
-        base_unit: Option::Some(Rc::clone(&mg_ref)),
-        ratio_to_base: 1000 * 1000
+    let sugar2 = Ingredient {
+        name: String::from("sugar"),
+        amount: 3.0,
+        unit: g.clone()
     };
 
-    println!("count for mg_ref = {}", Rc::strong_count(&mg_ref));
+    let shopping_list_item = sugar1.combine(sugar2);
+    println!("{}", shopping_list_item.name);
+    println!("{}", shopping_list_item.amount);
 }
