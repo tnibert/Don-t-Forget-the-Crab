@@ -10,18 +10,18 @@ struct Ingredient {
 }
 
 impl Ingredient {
-    fn combine (&self, other: Ingredient) -> Ingredient {
+    fn combine (&self, other: Ingredient) -> Result<Ingredient, &'static str> {
         if (self.name == other.name) {
-            return Ingredient {
+            return Ok(Ingredient {
                 name: self.name.clone(),
                 // todo: normalize the amounts across units
                 amount: self.amount + other.amount,
                 unit: self.unit.clone()
-            }
+            })
 
         } else {
             // can't combine
-            panic!("these things are not the same");
+            return Err("these things are not the same");
         }
     }
 }
@@ -51,6 +51,8 @@ fn main() {
     };
 
     let shopping_list_item = sugar1.combine(sugar2);
-    println!("{}", shopping_list_item.name);
-    println!("{}", shopping_list_item.amount);
+    //println!("{}", shopping_list_item.name);
+    //println!("{}", shopping_list_item.amount);
+
+
 }
