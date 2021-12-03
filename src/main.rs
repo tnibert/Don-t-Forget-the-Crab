@@ -1,6 +1,19 @@
 use std::collections::HashMap;
 
-// todo: struct Recipe
+// todo: make into an iterator
+struct Recipe {
+    ingredients: Vec<Ingredient>
+}
+
+impl Recipe {
+    // construct with slice of ingredients - effectively variable # args
+    fn new() -> Recipe {
+        //let mut i: Vec<Ingredient> = args.to_vec();
+        Self {
+            ingredients: Vec::<Ingredient>::new()
+        }
+    }
+}
 
 struct Ingredient {
     name: String,
@@ -9,7 +22,7 @@ struct Ingredient {
 }
 
 impl Ingredient {
-    fn combine (&self, other: &Ingredient) -> Result<Ingredient, &'static str> {
+    fn combine(&self, other: &Ingredient) -> Result<Ingredient, &'static str> {
         if (self.name == other.name) {
             return Ok(Ingredient {
                 name: self.name.clone(),
@@ -32,7 +45,7 @@ enum Unit {
     count(String, u32)
 }
 
-fn main() {
+fn hashmap_example() {
     // hashmap example - for reference
     let mut sample: HashMap<String, i32> = HashMap::new();
 
@@ -44,21 +57,57 @@ fn main() {
         println!("{} - {}", key, value);
     }
     println!("four: {:?}", sample.get("four").unwrap());
+}
 
+fn main() {
+    // create units
     let mg = Unit::weight(String::from("mg"), 1);
     let g = Unit::weight(String::from("g"), 1000);
     let kg = Unit::weight(String::from("kg"), 1000 * 1000);
+    
+    let num = Unit::count(String::from(""), 1);
 
-    //let shopping_list_item = sugar1.combine(sugar2);
-    //println!("{}", shopping_list_item.name);
-    //println!("{}", shopping_list_item.amount);
+    // create recipes
+    let mut eggsandtoast = Recipe::new();
+    eggsandtoast.ingredients.push(Ingredient {
+        name: "egg".to_string(),
+        amount: 2.0,
+        unit: num.clone()
+    });
+    eggsandtoast.ingredients.push(Ingredient {
+        name: "bread".to_string(),
+        amount: 2.0,
+        unit: num.clone()
+    });
 
+    let mut eggmuffin = Recipe::new();
+    eggmuffin.ingredients.push(Ingredient {
+        name: "egg".to_string(),
+        amount: 1.0,
+        unit: num.clone()
+    });
+    eggmuffin.ingredients.push(Ingredient {
+        name: "english muffin".to_string(),
+        amount: 1.0,
+        unit: num.clone()
+    });
+    eggmuffin.ingredients.push(Ingredient {
+        name: "cheese slice".to_string(),
+        amount: 1.0,
+        unit: num.clone()
+    });
+
+    // all recipes to add to shopping list
+    let recipes = [eggsandtoast, eggmuffin];
+
+    // todo: pull all ingredients from recipes into hashmap
+
+    // todo: organize the following and adapt for the above data
     // hashmap and fold()
     // each key is the name of the ingredient
     // each value is a vector of the ingredients
     // then fold() to reduce each to a single value
     // don't worry about units yet, just use grams
-
     let mut ingredient_map = HashMap::new();
 
     ingredient_map.insert("sugar".to_string(), Vec::<Ingredient>::new());
