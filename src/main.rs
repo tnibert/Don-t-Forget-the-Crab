@@ -1,6 +1,9 @@
 use std::collections::HashMap;
 
-// todo: make into an iterator
+// todo: remove unnecessary clone() calls and use the borrow checker correctly
+// todo: refactor logic cleanly out of main.rs
+
+// todo (maybe): make into an iterator
 struct Recipe {
     ingredients: Vec<Ingredient>
 }
@@ -15,6 +18,7 @@ impl Recipe {
     }
 }
 
+#[derive(Clone, Debug)]
 struct Ingredient {
     name: String,
     amount: f32,
@@ -22,23 +26,25 @@ struct Ingredient {
 }
 
 impl Ingredient {
-    fn combine(&self, other: &Ingredient) -> Result<Ingredient, &'static str> {
+    // todo: use Result, not Panic
+    fn combine(&self, other: &Ingredient) -> Ingredient { //Result<Ingredient, &'static str> {
         if (self.name == other.name) {
-            return Ok(Ingredient {
+            return Ingredient {
                 name: self.name.clone(),
                 // todo: normalize the amounts across units
                 amount: self.amount + other.amount,
                 unit: self.unit.clone()
-            })
+            }
 
         } else {
             // can't combine
-            return Err("these things are not the same");
+            //return Err("these things are not the same");
+            panic!("these things are not the same");
         }
     }
 }
 
-#[derive(Clone)]
+#[derive(Clone, Debug)]
 enum Unit {
     weight(String, u32),
     volume(String, u32),
@@ -68,6 +74,7 @@ fn main() {
     let num = Unit::count(String::from(""), 1);
 
     // create recipes
+    // todo: store and retrieve recipes from database
     let mut eggsandtoast = Recipe::new();
     eggsandtoast.ingredients.push(Ingredient {
         name: "egg".to_string(),
@@ -100,37 +107,33 @@ fn main() {
     // all recipes to add to shopping list
     let recipes = [eggsandtoast, eggmuffin];
 
-    // todo: pull all ingredients from recipes into hashmap
+    // clone all ingredients from recipes into hashmap of ingredient name to vector of that ingredient
+    let mut ingredient_map: HashMap<String, Vec<Ingredient>> = HashMap::new();
+    for r in recipes.iter() {
+        for i in r.ingredients.iter() {
+            let myvec = ingredient_map.get_mut(&i.name);
+            match myvec {
+                Some(val) => val.push(i.clone()),
+                None => ingredient_map.insert(i.name.clone(), vec![i.clone()])
+            };
+        }
+    }
 
-    // todo: organize the following and adapt for the above data
-    // hashmap and fold()
-    // each key is the name of the ingredient
-    // each value is a vector of the ingredients
-    // then fold() to reduce each to a single value
-    // don't worry about units yet, just use grams
-    let mut ingredient_map = HashMap::new();
-
-    ingredient_map.insert("sugar".to_string(), Vec::<Ingredient>::new());
-
-    let sugar = ingredient_map.get_mut("sugar").unwrap();
-
-    sugar.push(Ingredient {
-        name: "sugar".to_string(),
-        amount: 3.0,
-        unit: g.clone()
-    });
+    // to populate with the final grocery list
+    let mut grocery_list: Vec<Ingredient> = Vec::new();
     
-    sugar.push(Ingredient {
-        name: "sugar".to_string(),
-        amount: 4.0,
-        unit: g.clone()
-    });
+    // fold each vector to obtain the amount to buy from the store
+    for (key, value) in &ingredient_map {
+        let empty = Ingredient {
+            name: key.to_string(),
+            amount: 0.0,
+            unit: g.clone()
+        };
+        grocery_list.push(value.iter().fold(empty.clone(), |a, x| a.combine(x)));
+    }
 
-    let empty = Ok(Ingredient {
-        name: "sugar".to_string(), 
-        amount: 0.0,
-        unit: g.clone()
-    });
-    let total = sugar.iter().fold(empty, |a, x| a.unwrap().combine(x));
-    println!("{}", total.unwrap().amount);
+    // todo: create a unit test
+    for item in grocery_list {
+        println!("{:?}", item);
+    }
 }
