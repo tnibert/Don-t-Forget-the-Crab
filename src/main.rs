@@ -1,9 +1,7 @@
 mod conversion;
 use conversion::*;
-use std::collections::HashMap;
 
-// todo: remove unnecessary clone() calls and use the borrow checker correctly
-// todo: refactor logic cleanly out of main.rs
+// todo: remove unnecessary clone() calls throughout program and use the borrow checker correctly
 
 fn main() {
     // create units
@@ -61,35 +59,8 @@ fn main() {
     });
 
     // all recipes to add to shopping list
-    let recipes = [eggsandtoast, eggmuffin];
-
-    // clone all ingredients from recipes into hashmap of ingredient name to vector of that ingredient
-    let mut ingredient_map: HashMap<String, Vec<Ingredient>> = HashMap::new();
-    for r in recipes.iter() {
-        for i in r.ingredients.iter() {
-            let myvec = ingredient_map.get_mut(&i.name);
-            match myvec {
-                // return value of each match arm must be same type, use ; to convert to statement and discard return to ()
-                Some(val) => val.push(i.clone()),
-                None => {
-                    ingredient_map.insert(i.name.clone(), vec![i.clone()]);
-                }
-            };
-        }
-    }
-
-    // to populate with the final grocery list
-    let mut grocery_list: Vec<Ingredient> = Vec::new();
-    
-    // fold each vector to obtain the amount to buy from the store
-    for (key, value) in &ingredient_map {
-        let empty = Ingredient {
-            name: key.to_string(),
-            amount: 0.0,
-            unit: base_unit(&value.get(0).unwrap().unit.measuring)
-        };
-        grocery_list.push(value.iter().fold(empty.clone(), |a, x| a.combine(x)));
-    }
+    let recipes = vec![eggsandtoast, eggmuffin];
+    let grocery_list = recipes_to_grocery_list(recipes);
 
     // todo: create a unit test
     for item in grocery_list {
