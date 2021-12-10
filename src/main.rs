@@ -1,115 +1,27 @@
+mod conversion;
+use conversion::*;
 use std::collections::HashMap;
 
 // todo: remove unnecessary clone() calls and use the borrow checker correctly
 // todo: refactor logic cleanly out of main.rs
 
-// define base units for retrieval
-fn base_unit(t: &UnitType) -> Unit {
-    match t {
-        UnitType::weight => Unit {
-            name: "mg".to_string(),
-            relative_to_base: 1.0,
-            measuring: UnitType::weight
-        },
-        UnitType::volume => Unit {
-            name: String::from("ml"),
-            relative_to_base: 1.0,
-            measuring: UnitType::volume
-        },
-        UnitType::count => Unit {
-            name: String::from(""),
-            relative_to_base: 1.0,
-            measuring: UnitType::count
-        }
-    }
-}
-
-// todo (maybe): make into an iterator
-struct Recipe {
-    ingredients: Vec<Ingredient>
-}
-
-impl Recipe {
-    // construct with slice of ingredients - effectively variable # args
-    fn new() -> Recipe {
-        //let mut i: Vec<Ingredient> = args.to_vec();
-        Self {
-            ingredients: Vec::<Ingredient>::new()
-        }
-    }
-}
-
-#[derive(Clone, Debug)]
-struct Ingredient {
-    name: String,
-    amount: f32,
-    unit: Unit
-}
-
-impl Ingredient {
-    // todo: use Result, not Panic
-    fn combine(&self, other: &Ingredient) -> Ingredient { //Result<Ingredient, &'static str> {
-        if self.name == other.name {      // && self.unit.measuring == other.unit.measuring
-            return Ingredient {
-                name: self.name.clone(),
-                // normalize the amounts across units
-                amount: self.amount * self.unit.relative_to_base + other.amount * other.unit.relative_to_base,
-                unit: base_unit(&self.unit.measuring)
-            }
-
-        } else {
-            // can't combine
-            //return Err("these things are not the same");
-            panic!("these things are not the same");
-        }
-    }
-}
-
-#[derive(Clone, Debug)]
-enum UnitType {
-    weight,
-    volume,
-    count
-}
-
-#[derive(Clone, Debug)]
-struct Unit {
-    name: String,
-    relative_to_base: f32,
-    measuring: UnitType
-}
-
-fn hashmap_example() {
-    // hashmap example - for reference
-    let mut sample: HashMap<String, i32> = HashMap::new();
-
-    sample.insert("one".to_string(), 1);
-    sample.insert("two".to_string(), 2);
-    sample.insert("three".to_string(), 3);
-    sample.insert("four".to_string(), 4);
-    for (key, value) in sample.iter() {
-        println!("{} - {}", key, value);
-    }
-    println!("four: {:?}", sample.get("four").unwrap());
-}
-
 fn main() {
     // create units
-    let mg = base_unit(&UnitType::weight);
+    //let mg = base_unit(&UnitType::Weight);
 
     let g = Unit {
         name: String::from("g"),
         relative_to_base: 1000.0,
-        measuring: UnitType::weight
+        measuring: UnitType::Weight
     };
     
     let kg = Unit {
         name: String::from("kg"),
         relative_to_base: 1000.0 * 1000.0,
-        measuring: UnitType::weight
+        measuring: UnitType::Weight
     };
     
-    let num = base_unit(&UnitType::count);
+    let num = base_unit(&UnitType::Count);
 
     // create recipes
     // todo: store and retrieve recipes from database
