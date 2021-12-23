@@ -1,8 +1,14 @@
 mod conversion;
 use conversion::*;
+mod units;
+use units::*;
+mod recipe;
+use recipe::*;
+mod ingredient;
+use ingredient::*;
 
 // todo: remove unnecessary clone() calls throughout program and use the borrow checker correctly
-// todo: load recipes from a database
+// todo: encapsulate in modules, remove unnecessary pubs
 
 fn main() {
     // create units
@@ -10,7 +16,7 @@ fn main() {
 
     let g = get_unit("g");
     let kg = get_unit("kg");
-    let num = base_unit(&UnitType::Count);
+    let num = get_unit("");
 
     // create recipes
     // todo: store and retrieve recipes from database
@@ -53,7 +59,13 @@ fn main() {
     let recipes = vec![eggsandtoast, eggmuffin];
     let grocery_list = recipes_to_grocery_list(recipes);
 
-    // todo: create a unit test
+    /*
+    todo: create integration test, assert grocery list is as follows
+    Ingredient { name: "bread", amount: 2.0, unit: Unit { name: "", relative_to_base: 1.0, measuring: Count } }
+    Ingredient { name: "cheese", amount: 2005000.0, unit: Unit { name: "mg", relative_to_base: 1.0, measuring: Weight } }
+    Ingredient { name: "egg", amount: 3.0, unit: Unit { name: "", relative_to_base: 1.0, measuring: Count } }
+    Ingredient { name: "english muffin", amount: 1.0, unit: Unit { name: "", relative_to_base: 1.0, measuring: Count } }
+    */
     for item in grocery_list {
         println!("{:?}", item);
     }
