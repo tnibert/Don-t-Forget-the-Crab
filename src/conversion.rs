@@ -1,7 +1,7 @@
 use std::collections::HashMap;
 
-// todo: rename this file, organize logically
 // todo: encapsulate better, remove unnecessary pubs
+// todo: ability to convert between weight, volume, and count for a given ingredient?
 
 // define base units for retrieval
 pub fn base_unit(t: &UnitType) -> Unit {
@@ -24,6 +24,63 @@ pub fn base_unit(t: &UnitType) -> Unit {
     }
 }
 
+// define units for retrieval by name
+pub fn get_unit(s: &str) -> Unit {
+    match s {
+        // base units
+        "mg" => base_unit(&UnitType::Weight),
+        "ml" => base_unit(&UnitType::Volume),
+        "" => base_unit(&UnitType::Count),
+
+        // weights
+        "g" | "gram" | "grams" => Unit {
+            name: "g".to_string(),
+            relative_to_base: 1000.0,
+            measuring: UnitType::Weight
+        },
+        "kg" | "kilogram" | "kilograms" => Unit {
+            name: "kg".to_string(),
+            relative_to_base: 1000.0 * 1000.0,
+            measuring: UnitType::Weight
+        },
+        "lb" | "lbs" | "pound" | "pounds" => Unit {
+            name: "lbs".to_string(),
+            relative_to_base: 453592.4,
+            measuring: UnitType::Weight
+        },
+        "oz" | "ounce" | "ounces" => Unit {
+            name: "oz".to_string(),
+            relative_to_base: 28349.52,
+            measuring: UnitType::Weight
+        },
+
+        // volumes
+        "l" | "liter" | "liters" => Unit {
+            name: "l".to_string(),
+            relative_to_base: 1000.0,
+            measuring: UnitType::Volume
+        },
+        "gal" | "gallon" | "gallons" => Unit {
+            name: "gallons".to_string(),
+            relative_to_base: 4546.09,
+            measuring: UnitType::Volume
+        },
+        "fluid ounce" | "fl oz" => Unit {
+            name: "imperial fluid ounce".to_string(),
+            relative_to_base: 28.41306,
+            measuring: UnitType::Volume
+        },
+        // this is imperial, todo: account for Australian measurement as well
+        "cup" | "cups" => Unit {
+            name: "cups".to_string(),
+            relative_to_base: 284.1306,
+            measuring: UnitType::Volume
+        },
+
+        _ => panic!("Unsupported unit {}", s)
+    }
+}
+
 // todo (maybe): make into an iterator
 pub struct Recipe {
     pub ingredients: Vec<Ingredient>
@@ -32,13 +89,16 @@ pub struct Recipe {
 impl Recipe {
     // construct with slice of ingredients - effectively variable # args
     pub fn new() -> Recipe {
-        //let mut i: Vec<Ingredient> = args.to_vec();
         Self {
             ingredients: Vec::<Ingredient>::new()
         }
     }
 }
 
+/*
+Really, any ingredient has both a weight and volume
+perhaps this should be represented
+*/
 #[derive(Clone, Debug)]
 pub struct Ingredient {
     pub name: String,
@@ -118,4 +178,16 @@ fn map_to_grocery_list(ingredient_map: HashMap<String, Vec<Ingredient>>) -> Vec<
 pub fn recipes_to_grocery_list(recipes: Vec<Recipe>) -> Vec<Ingredient> {
     let ingredient_map = recipes_to_map(recipes);
     map_to_grocery_list(ingredient_map)
+}
+
+// unit tests
+#[cfg(test)]
+mod tests {
+    #[test]
+    fn test_get_unit() {
+        let pound = super::get_unit("lbs");
+        //assert!(true); 
+        assert_eq!(pound.relative_to_base, 453592.4);
+        //assert_ne!(1, 2);
+    }
 }

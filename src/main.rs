@@ -2,23 +2,14 @@ mod conversion;
 use conversion::*;
 
 // todo: remove unnecessary clone() calls throughout program and use the borrow checker correctly
+// todo: load recipes from a database
 
 fn main() {
     // create units
     //let mg = base_unit(&UnitType::Weight);
 
-    let g = Unit {
-        name: String::from("g"),
-        relative_to_base: 1000.0,
-        measuring: UnitType::Weight
-    };
-    
-    let kg = Unit {
-        name: String::from("kg"),
-        relative_to_base: 1000.0 * 1000.0,
-        measuring: UnitType::Weight
-    };
-    
+    let g = get_unit("g");
+    let kg = get_unit("kg");
     let num = base_unit(&UnitType::Count);
 
     // create recipes
