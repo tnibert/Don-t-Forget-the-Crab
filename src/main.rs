@@ -20,7 +20,7 @@ fn main() {
 
     // create recipes
     // todo: store and retrieve recipes from database
-    let mut eggsandtoast = Recipe::new();
+    let mut eggsandtoast = Recipe::new("eggs and toast");
     eggsandtoast.ingredients.push(Ingredient {
         name: "egg".to_string(),
         amount: 2.0,
@@ -38,7 +38,7 @@ fn main() {
         unit: kg.clone()
     });
 
-    let mut eggmuffin = Recipe::new();
+    let mut eggmuffin = Recipe::new("egg muffin");
     eggmuffin.ingredients.push(Ingredient {
         name: "egg".to_string(),
         amount: 1.0,

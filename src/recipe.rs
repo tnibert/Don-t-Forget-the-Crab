@@ -4,14 +4,17 @@ use crate::ingredient::*;
 
 // todo (maybe): make into an iterator
 pub struct Recipe {
+    pub name: String,
     pub ingredients: Vec<Ingredient>
 }
 
 impl Recipe {
-    // construct with slice of ingredients - effectively variable # args
-    pub fn new() -> Recipe {
+    pub fn new(name: &str) -> Recipe {
         Self {
+            name: name.to_string(),
             ingredients: Vec::<Ingredient>::new()
         }
     }
+
+    // todo: constructor to initialize with vector
 }
