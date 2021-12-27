@@ -1,3 +1,7 @@
+#[macro_use]
+extern crate diesel;
+extern crate dotenv;
+
 mod conversion;
 use conversion::*;
 mod units;
@@ -6,6 +10,8 @@ mod recipe;
 use recipe::*;
 mod ingredient;
 use ingredient::*;
+mod dbaccess;
+use dbaccess::*;
 
 // todo: remove unnecessary clone() calls throughout program and use the borrow checker correctly
 // todo: encapsulate in modules, remove unnecessary pubs
@@ -69,4 +75,6 @@ fn main() {
     for item in grocery_list {
         println!("{:?}", item);
     }
+
+    get_recipe("test");
 }
