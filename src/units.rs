@@ -37,6 +37,7 @@ pub fn base_unit(t: &UnitType) -> Unit {
 
 // define units for retrieval by name
 pub fn get_unit(s: &str) -> Unit {
+    // todo: make s lower case
     match s {
         // base units
         "mg" => base_unit(&UnitType::Weight),
@@ -85,6 +86,16 @@ pub fn get_unit(s: &str) -> Unit {
         "cup" | "cups" => Unit {
             name: "cups".to_string(),
             relative_to_base: 284.1306,
+            measuring: UnitType::Volume
+        },
+        "teaspoon" | "tsp" => Unit {
+            name: "tsp".to_string(),
+            relative_to_base: 0.1689364,
+            measuring: UnitType::Volume
+        },
+        "tablespoon" | "tbsp" => Unit {
+            name: "tbsp".to_string(),
+            relative_to_base: 0.05631213,
             measuring: UnitType::Volume
         },
 

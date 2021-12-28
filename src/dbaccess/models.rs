@@ -1,3 +1,5 @@
+// todo: evaluate db for further normalization
+
 #[derive(Queryable)]
 pub struct RecipeModel {
     pub id: i32,

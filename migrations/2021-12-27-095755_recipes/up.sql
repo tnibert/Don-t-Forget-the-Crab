@@ -36,4 +36,8 @@ INSERT INTO recipes (recipe_name, notes) VALUES ('Pavlova', NULL);
 
 --add ingredients to recipes
 --ingredients exist as constituent members of a larger set - recipe or grocery list, not in their own right, always have amount and unit
-INSERT INTO ingredients (recipe_id, ingredient_name, amount, unit) VALUES ((SELECT id FROM recipes where recipe_name='Green Bean Casserole'), E'Campbell\'s Condensed Cream of Mushroom Soup', 10.5, 'ounces');
+INSERT INTO ingredients (recipe_id, ingredient_name, amount, unit) VALUES ((SELECT id FROM recipes where recipe_name='Green Bean Casserole'), 'Campbells Condensed Cream of Mushroom Soup', 10.5, 'ounces');
+INSERT INTO ingredients (recipe_id, ingredient_name, amount, unit) VALUES ((SELECT id FROM recipes where recipe_name='Green Bean Casserole'), 'milk', 0.75, 'cups');
+INSERT INTO ingredients (recipe_id, ingredient_name, amount, unit) VALUES ((SELECT id FROM recipes where recipe_name='Green Bean Casserole'), 'black pepper', 0.125, 'teaspoon');
+INSERT INTO ingredients (recipe_id, ingredient_name, amount, unit) VALUES ((SELECT id FROM recipes where recipe_name='Green Bean Casserole'), 'can green beans', 2.0, '');
+INSERT INTO ingredients (recipe_id, ingredient_name, amount, unit) VALUES ((SELECT id FROM recipes where recipe_name='Green Bean Casserole'), 'frenchs crispy fried onions', 1.33, 'cups');

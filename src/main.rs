@@ -79,7 +79,12 @@ fn main() {
     // test with database
     let retrieved_recipe = get_recipe("Green Bean Casserole");
     match retrieved_recipe {
-        Some(r) => println!("Retrieved recipe {}", r.name),
+        Some(r) => {
+            println!("Retrieved recipe {}", r.name);
+            for i in r.ingredients {
+                println!("{:?}", i);
+            }
+        },
         None => println!("No recipe with that name exists in database")
     }
 }

@@ -23,6 +23,7 @@ pub fn establish_connection() -> PgConnection {
         .expect(&format!("Error connecting to {}", database_url))
 }
 
+// todo: unit test
 pub fn get_recipe(name: &str) -> Option<Recipe> {
     let connection = establish_connection();
     let recipe_result = recipes::table.filter(recipes::recipe_name.like(name))
@@ -31,13 +32,12 @@ pub fn get_recipe(name: &str) -> Option<Recipe> {
         .expect("Error loading recipe");
 
     // todo: is there a better way to get first row without explicitly checking len?
-    // todo: is there a better way to join over foreign keys?
     if recipe_result.len() == 0 {
         return None;
     }
     let recipe_id = recipe_result[0].id;
 
-    // todo: populate ingredients in recipe
+    // todo: is there a better way to join over foreign keys?
     let ingredients_result = ingredients::table.filter(ingredients::recipe_id.eq(recipe_id))
         .load::<IngredientModel>(&connection)
         .expect("Error loading ingredients");
@@ -46,9 +46,7 @@ pub fn get_recipe(name: &str) -> Option<Recipe> {
     println!("{} ingredients", ingredients_result.len());
 
     let mut myrecipe = Recipe::new(&recipe_result[0].recipe_name);
-    // todo: populate ingredients in db and test
     for i in ingredients_result {
-        println!("{}\n", i.ingredient_name);
         myrecipe.ingredients.push(Ingredient {
             name: i.ingredient_name,
             amount: i.amount,
