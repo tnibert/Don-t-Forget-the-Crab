@@ -3,7 +3,6 @@ table! {
         id -> Int4,
         recipe_id -> Int4,
         ingredient_name -> Varchar,
-        // todo: confirm whether or not this should be Float8
         amount -> Float,
         unit -> Varchar,
     }

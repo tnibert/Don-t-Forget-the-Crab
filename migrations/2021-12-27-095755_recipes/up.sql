@@ -9,7 +9,7 @@ CREATE TABLE ingredients (
   id SERIAL PRIMARY KEY,
   recipe_id SERIAL,
   ingredient_name VARCHAR NOT NULL,
-  amount FLOAT NOT NULL,
+  amount FLOAT4 NOT NULL,
   unit VARCHAR NOT NULL,
   CONSTRAINT fk_recipe
       FOREIGN KEY(recipe_id) 
@@ -33,3 +33,7 @@ INSERT INTO recipes (recipe_name, notes) VALUES ('Brown Butter Blondies', 'https
 INSERT INTO recipes (recipe_name, notes) VALUES ('Camembert baked with maple syrup, pecans and blueberries', 'https://www.sainsburysmagazine.co.uk/recipes/mains/camembert-baked-with-maple-syrup-pecans-and-blueberries?fbclid=IwAR2B5G3OK9B3j6fYigt_W9UWH7zkaYh4RIgohat8ewDnKhfNbdjp6n1gz_E');
 INSERT INTO recipes (recipe_name, notes) VALUES ('Sticky Date Pudding', NULL);
 INSERT INTO recipes (recipe_name, notes) VALUES ('Pavlova', NULL);
+
+--add ingredients to recipes
+--ingredients exist as constituent members of a larger set - recipe or grocery list, not in their own right, always have amount and unit
+INSERT INTO ingredients (recipe_id, ingredient_name, amount, unit) VALUES ((SELECT id FROM recipes where recipe_name='Green Bean Casserole'), E'Campbell\'s Condensed Cream of Mushroom Soup', 10.5, 'ounces');
