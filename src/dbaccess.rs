@@ -22,15 +22,18 @@ pub fn establish_connection() -> PgConnection {
 }
 
 // todo: populate db and test
-pub fn get_recipe(name: &str) -> Recipe {
+pub fn get_recipe(name: &str) -> Option<Recipe> {
     let connection = establish_connection();
     let recipe_result = recipes::table.filter(recipes::recipe_name.like(name))
         .limit(1)
         .load::<RecipeModel>(&connection)
         .expect("Error loading recipe");
 
-    // todo: we will panic here if no rows returned, find better way to get one row
-    // todo: find out if there is a better way to join over foreign keys
+    // todo: is there a better way to get first row without explicitly checking len?
+    // todo: is there a better way to join over foreign keys?
+    if recipe_result.len() == 0 {
+        return None;
+    }
     let recipe_id = recipe_result[0].id;
     let ingredients_result = ingredients::table.filter(ingredients::recipe_id.eq(recipe_id))
         .load::<IngredientModel>(&connection)
@@ -43,5 +46,5 @@ pub fn get_recipe(name: &str) -> Recipe {
     }
 
     // todo: populate from queried data
-    Recipe::new("test")
+    Some(Recipe::new("test"))
 }
