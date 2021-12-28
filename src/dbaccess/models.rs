@@ -2,6 +2,7 @@
 pub struct RecipeModel {
     pub id: i32,
     pub recipe_name: String,
+    pub notes: Option<String>
 }
 
 #[derive(Queryable)]

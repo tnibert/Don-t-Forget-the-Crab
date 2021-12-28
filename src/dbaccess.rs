@@ -35,6 +35,8 @@ pub fn get_recipe(name: &str) -> Option<Recipe> {
         return None;
     }
     let recipe_id = recipe_result[0].id;
+
+    // todo: populate ingredients in recipe
     let ingredients_result = ingredients::table.filter(ingredients::recipe_id.eq(recipe_id))
         .load::<IngredientModel>(&connection)
         .expect("Error loading ingredients");
@@ -45,6 +47,5 @@ pub fn get_recipe(name: &str) -> Option<Recipe> {
         println!("{}\n", i.ingredient_name);
     }
 
-    // todo: populate from queried data
-    Some(Recipe::new("test"))
+    Some(Recipe::new(&recipe_result[0].recipe_name))
 }

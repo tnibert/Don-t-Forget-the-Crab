@@ -76,5 +76,10 @@ fn main() {
         println!("{:?}", item);
     }
 
-    get_recipe("test");
+    // test with database
+    let retrieved_recipe = get_recipe("Sweet Potato Casserole");
+    match retrieved_recipe {
+        Some(r) => println!("Retrieved recipe {}", r.name),
+        None => println!("No recipe with that name exists in database")
+    }
 }
