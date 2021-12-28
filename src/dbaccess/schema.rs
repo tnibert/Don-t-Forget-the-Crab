@@ -5,6 +5,7 @@ table! {
         ingredient_name -> Varchar,
         amount -> Float,
         unit -> Varchar,
+        notes -> Nullable<Varchar>,
     }
 }
 

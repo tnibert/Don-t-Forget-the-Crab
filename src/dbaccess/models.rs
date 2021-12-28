@@ -13,5 +13,6 @@ pub struct IngredientModel {
     pub recipe_id: i32,
     pub ingredient_name: String,
     pub amount: f32,
-    pub unit: String
+    pub unit: String,
+    pub notes: Option<String>
 }

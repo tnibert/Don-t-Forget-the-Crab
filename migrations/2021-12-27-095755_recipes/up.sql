@@ -11,6 +11,7 @@ CREATE TABLE ingredients (
   ingredient_name VARCHAR NOT NULL,
   amount FLOAT4 NOT NULL,
   unit VARCHAR NOT NULL,
+  notes VARCHAR,
   CONSTRAINT fk_recipe
       FOREIGN KEY(recipe_id) 
       REFERENCES recipes(id)
@@ -41,3 +42,13 @@ INSERT INTO ingredients (recipe_id, ingredient_name, amount, unit) VALUES ((SELE
 INSERT INTO ingredients (recipe_id, ingredient_name, amount, unit) VALUES ((SELECT id FROM recipes where recipe_name='Green Bean Casserole'), 'black pepper', 0.125, 'teaspoon');
 INSERT INTO ingredients (recipe_id, ingredient_name, amount, unit) VALUES ((SELECT id FROM recipes where recipe_name='Green Bean Casserole'), 'can green beans', 2.0, '');
 INSERT INTO ingredients (recipe_id, ingredient_name, amount, unit) VALUES ((SELECT id FROM recipes where recipe_name='Green Bean Casserole'), 'frenchs crispy fried onions', 1.33, 'cups');
+
+INSERT INTO ingredients (recipe_id, ingredient_name, amount, unit) VALUES ((SELECT id FROM recipes where recipe_name='Cranberry Delight Salad'), 'hot water', 2.0, 'cups');
+INSERT INTO ingredients (recipe_id, ingredient_name, amount, unit) VALUES ((SELECT id FROM recipes where recipe_name='Cranberry Delight Salad'), 'pack lemon jello', 1.0, '');
+INSERT INTO ingredients (recipe_id, ingredient_name, amount, unit) VALUES ((SELECT id FROM recipes where recipe_name='Cranberry Delight Salad'), 'pack raspberry jello', 1.0, '');
+INSERT INTO ingredients (recipe_id, ingredient_name, amount, unit, notes) VALUES ((SELECT id FROM recipes where recipe_name='Cranberry Delight Salad'), 'cranberries', 2.0, 'cups', 'ground, can sub cranberry sauce');
+INSERT INTO ingredients (recipe_id, ingredient_name, amount, unit, notes) VALUES ((SELECT id FROM recipes where recipe_name='Cranberry Delight Salad'), 'pineapple', 0.75, 'cups', 'crushed');
+INSERT INTO ingredients (recipe_id, ingredient_name, amount, unit, notes) VALUES ((SELECT id FROM recipes where recipe_name='Cranberry Delight Salad'), 'celery', 2.0, 'cups', 'chopped');
+INSERT INTO ingredients (recipe_id, ingredient_name, amount, unit) VALUES ((SELECT id FROM recipes where recipe_name='Cranberry Delight Salad'), 'sugar', 1.5, 'cups');
+INSERT INTO ingredients (recipe_id, ingredient_name, amount, unit) VALUES ((SELECT id FROM recipes where recipe_name='Cranberry Delight Salad'), 'walnuts', 1.0, 'cups');
+INSERT INTO ingredients (recipe_id, ingredient_name, amount, unit, notes) VALUES ((SELECT id FROM recipes where recipe_name='Cranberry Delight Salad'), 'grapes', 1.33, 'cups', 'chopped');

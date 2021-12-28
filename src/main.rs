@@ -76,15 +76,22 @@ fn main() {
         println!("{:?}", item);
     }
 
-    // test with database
-    let retrieved_recipe = get_recipe("Green Bean Casserole");
-    match retrieved_recipe {
-        Some(r) => {
-            println!("Retrieved recipe {}", r.name);
-            for i in r.ingredients {
-                println!("{:?}", i);
-            }
-        },
-        None => println!("No recipe with that name exists in database")
+    //------------------------------------------------------------------------------------------------------------
+
+    let thanksgiving_array = ["Green Bean Casserole", "Cranberry Delight Salad"];
+    for recipe_name in thanksgiving_array.iter() {
+        let retrieved_recipe = get_recipe(recipe_name);
+        match retrieved_recipe {
+            Some(r) => {
+                println!("Retrieved recipe {}", r.name);
+                for i in r.ingredients {
+                    println!("{:?}", i);
+                }
+            },
+            None => println!("No recipe with that name exists in database")
+        }
     }
+
+    // todo: declare list of thanksgiving recipe names to include in shopping list
+    // then convert to grocery list
 }
