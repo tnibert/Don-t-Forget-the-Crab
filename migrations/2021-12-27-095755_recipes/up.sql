@@ -67,3 +67,27 @@ INSERT INTO ingredients (recipe_id, ingredient_name, amount, unit) VALUES ((SELE
 INSERT INTO ingredients (recipe_id, ingredient_name, amount, unit) VALUES ((SELECT id FROM recipes where recipe_name='Sweet Potato Casserole'), 'kosher salt', 0.25, 'tsp');
 INSERT INTO ingredients (recipe_id, ingredient_name, amount, unit, notes) VALUES ((SELECT id FROM recipes where recipe_name='Sweet Potato Casserole'), 'walnuts', 0.75, 'cup', 'chopped');
 
+INSERT INTO ingredients (recipe_id, ingredient_name, amount, unit) VALUES ((SELECT id FROM recipes where recipe_name='Corn Souffle Casserole'), 'milk', 0.5, 'cup');
+INSERT INTO ingredients (recipe_id, ingredient_name, amount, unit) VALUES ((SELECT id FROM recipes where recipe_name='Corn Souffle Casserole'), 'heavy cream', 0.5, 'cup');
+INSERT INTO ingredients (recipe_id, ingredient_name, amount, unit) VALUES ((SELECT id FROM recipes where recipe_name='Corn Souffle Casserole'), 'unsalted butter', 2.0, 'tbsp');
+INSERT INTO ingredients (recipe_id, ingredient_name, amount, unit) VALUES ((SELECT id FROM recipes where recipe_name='Corn Souffle Casserole'), 'sugar', 1.5, 'tbsp');
+INSERT INTO ingredients (recipe_id, ingredient_name, amount, unit) VALUES ((SELECT id FROM recipes where recipe_name='Corn Souffle Casserole'), 'flour', 2.0, 'tbsp');
+INSERT INTO ingredients (recipe_id, ingredient_name, amount, unit) VALUES ((SELECT id FROM recipes where recipe_name='Corn Souffle Casserole'), 'salt', 1.0, 'tsp');
+INSERT INTO ingredients (recipe_id, ingredient_name, amount, unit) VALUES ((SELECT id FROM recipes where recipe_name='Corn Souffle Casserole'), 'corn kernels', 5.0, 'cups');
+INSERT INTO ingredients (recipe_id, ingredient_name, amount, unit) VALUES ((SELECT id FROM recipes where recipe_name='Corn Souffle Casserole'), 'eggs', 2.0, '');
+INSERT INTO ingredients (recipe_id, ingredient_name, amount, unit, notes) VALUES ((SELECT id FROM recipes where recipe_name='Corn Souffle Casserole'), 'asiago', 0.5, 'cup', 'shredded, optional');
+INSERT INTO ingredients (recipe_id, ingredient_name, amount, unit, notes) VALUES ((SELECT id FROM recipes where recipe_name='Corn Souffle Casserole'), 'Chives', 1.0, '', 'for garnish');
+
+INSERT INTO ingredients (recipe_id, ingredient_name, amount, unit) VALUES ((SELECT id FROM recipes where recipe_name='Broccoli Casserole'), 'broccoli florets', 6.0, 'cups');
+INSERT INTO ingredients (recipe_id, ingredient_name, amount, unit, notes) VALUES ((SELECT id FROM recipes where recipe_name='Broccoli Casserole'), 'onion', 0.5, 'cups', 'finely diced');
+INSERT INTO ingredients (recipe_id, ingredient_name, amount, unit) VALUES ((SELECT id FROM recipes where recipe_name='Broccoli Casserole'), 'butter', 0.25, 'cups');
+INSERT INTO ingredients (recipe_id, ingredient_name, amount, unit) VALUES ((SELECT id FROM recipes where recipe_name='Broccoli Casserole'), 'flour', 0.25, 'cups');
+INSERT INTO ingredients (recipe_id, ingredient_name, amount, unit) VALUES ((SELECT id FROM recipes where recipe_name='Broccoli Casserole'), 'milk', 2.0, 'cups');
+INSERT INTO ingredients (recipe_id, ingredient_name, amount, unit) VALUES ((SELECT id FROM recipes where recipe_name='Broccoli Casserole'), 'cheddar cheese', 3.0, 'cups');
+INSERT INTO ingredients (recipe_id, ingredient_name, amount, unit) VALUES ((SELECT id FROM recipes where recipe_name='Broccoli Casserole'), 'cream cheese', 2.0, 'ounces');
+INSERT INTO ingredients (recipe_id, ingredient_name, amount, unit) VALUES ((SELECT id FROM recipes where recipe_name='Broccoli Casserole'), 'salt', 1.0, 'tsp');
+INSERT INTO ingredients (recipe_id, ingredient_name, amount, unit) VALUES ((SELECT id FROM recipes where recipe_name='Broccoli Casserole'), 'pepper', 0.5, 'tsp');
+INSERT INTO ingredients (recipe_id, ingredient_name, amount, unit) VALUES ((SELECT id FROM recipes where recipe_name='Broccoli Casserole'), 'smoked paprika', 1.0, 'tsp');
+INSERT INTO ingredients (recipe_id, ingredient_name, amount, unit) VALUES ((SELECT id FROM recipes where recipe_name='Broccoli Casserole'), 'garlic powder', 0.25, 'tsp');
+INSERT INTO ingredients (recipe_id, ingredient_name, amount, unit) VALUES ((SELECT id FROM recipes where recipe_name='Broccoli Casserole'), 'Ritz crackers', 1.0, 'cup');
+INSERT INTO ingredients (recipe_id, ingredient_name, amount, unit, notes) VALUES ((SELECT id FROM recipes where recipe_name='Broccoli Casserole'), 'parsley', 2.0, 'tbsp', 'chopped');

@@ -2,14 +2,13 @@
 extern crate diesel;
 extern crate dotenv;
 
+mod units;
+mod recipe;
+mod ingredient;
+
 mod conversion;
 use conversion::*;
-mod units;
-use units::*;
-mod recipe;
-use recipe::*;
-mod ingredient;
-use ingredient::*;
+
 mod dbaccess;
 use dbaccess::*;
 
@@ -18,7 +17,7 @@ use dbaccess::*;
 
 fn main() {
     // edit this array for the meal plan
-    let thanksgiving_array = ["Green Bean Casserole", "Cranberry Delight Salad", "Sweet Potato Casserole"];
+    let thanksgiving_array = ["Green Bean Casserole", "Cranberry Delight Salad", "Sweet Potato Casserole", "Corn Souffle Casserole", "Broccoli Casserole"];
 
     let mut recipes = Vec::new();
 
@@ -48,6 +47,9 @@ fn main() {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use units::*;
+    use recipe::*;
+    use ingredient::*;
 
     #[test]
     fn test_combination() {
