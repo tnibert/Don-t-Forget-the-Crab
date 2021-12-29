@@ -16,7 +16,8 @@ use dbaccess::*;
 // todo: remove unnecessary clone() calls throughout program and use the borrow checker correctly
 // todo: encapsulate in modules, remove unnecessary pubs
 
-fn main() {
+// todo: make this a real integration test
+fn test_combination() {
     // create units
     //let mg = base_unit(&UnitType::Weight);
 
@@ -75,10 +76,13 @@ fn main() {
     for item in grocery_list {
         println!("{:?}", item);
     }
+}
 
-    //------------------------------------------------------------------------------------------------------------
+fn main() {
+    test_combination();
 
     let thanksgiving_array = ["Green Bean Casserole", "Cranberry Delight Salad"];
+
     for recipe_name in thanksgiving_array.iter() {
         let retrieved_recipe = get_recipe(recipe_name);
         match retrieved_recipe {
