@@ -17,23 +17,31 @@ use dbaccess::*;
 // todo: encapsulate in modules, remove unnecessary pubs
 
 fn main() {
+    // edit this array for the meal plan
     let thanksgiving_array = ["Green Bean Casserole", "Cranberry Delight Salad"];
+    let mut recipes = Vec::new();
 
     for recipe_name in thanksgiving_array.iter() {
         let retrieved_recipe = get_recipe(recipe_name);
         match retrieved_recipe {
             Some(r) => {
                 println!("Retrieved recipe {}", r.name);
-                for i in r.ingredients {
+                recipes.push(r);
+                /*for i in r.ingredients {
                     println!("{:?}", i);
-                }
+                }*/
             },
             None => println!("No recipe with that name exists in database")
         }
     }
 
-    // todo: declare list of thanksgiving recipe names to include in shopping list
-    // then convert to grocery list
+    // convert meal plan recipes to grocery list
+    let grocery_list = recipes_to_grocery_list(recipes);
+
+    // todo: format nicer
+    for item in grocery_list {
+        println!("{:?}", item);
+    }
 }
 
 // integration tests
@@ -115,9 +123,5 @@ mod tests {
         let index = grocery_list.iter().position(|x| x.name == "english muffin").unwrap();
         assert_eq!(grocery_list[index].amount, 1.0);
         assert_eq!(grocery_list[index].unit.name, "");
-
-        /*for item in grocery_list {
-            println!("{:?}", item);
-        }*/
     }
 }
