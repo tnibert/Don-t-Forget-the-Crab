@@ -42,8 +42,8 @@ pub fn get_recipe(name: &str) -> Option<Recipe> {
         .load::<IngredientModel>(&connection)
         .expect("Error loading ingredients");
     
-    println!("{} recipe", recipe_result.len());
-    println!("{} ingredients", ingredients_result.len());
+    //println!("{} recipe", recipe_result.len());
+    //println!("{} ingredients", ingredients_result.len());
 
     let mut myrecipe = Recipe::new(&recipe_result[0].recipe_name);
     for i in ingredients_result {

@@ -18,7 +18,8 @@ use dbaccess::*;
 
 fn main() {
     // edit this array for the meal plan
-    let thanksgiving_array = ["Green Bean Casserole", "Cranberry Delight Salad"];
+    let thanksgiving_array = ["Green Bean Casserole", "Cranberry Delight Salad", "Sweet Potato Casserole"];
+
     let mut recipes = Vec::new();
 
     for recipe_name in thanksgiving_array.iter() {
@@ -38,9 +39,8 @@ fn main() {
     // convert meal plan recipes to grocery list
     let grocery_list = recipes_to_grocery_list(recipes);
 
-    // todo: format nicer
     for item in grocery_list {
-        println!("{:?}", item);
+        println!("{} {} {}", item.amount, item.unit.name, item.name);
     }
 }
 
