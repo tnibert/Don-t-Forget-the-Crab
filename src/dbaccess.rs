@@ -47,7 +47,7 @@ pub fn get_recipe(name: &str) -> Option<Recipe> {
 
     let mut myrecipe = Recipe::new(&recipe_result[0].recipe_name);
     for i in ingredients_result {
-        myrecipe.ingredients.push(Ingredient {
+        myrecipe.push(Ingredient {
             name: i.ingredient_name,
             amount: i.amount,
             unit: get_unit(&i.unit)

@@ -27,9 +27,6 @@ fn main() {
             Some(r) => {
                 println!("Retrieved recipe {}", r.name);
                 recipes.push(r);
-                /*for i in r.ingredients {
-                    println!("{:?}", i);
-                }*/
             },
             None => println!("No recipe with that name exists in database")
         }
@@ -63,17 +60,17 @@ mod tests {
         // create recipes
         // todo: store and retrieve recipes from database
         let mut eggsandtoast = Recipe::new("eggs and toast");
-        eggsandtoast.ingredients.push(Ingredient {
+        eggsandtoast.push(Ingredient {
             name: "egg".to_string(),
             amount: 2.0,
             unit: num.clone()
         });
-        eggsandtoast.ingredients.push(Ingredient {
+        eggsandtoast.push(Ingredient {
             name: "bread".to_string(),
             amount: 2.0,
             unit: num.clone()
         });
-        eggsandtoast.ingredients.push(Ingredient {
+        eggsandtoast.push(Ingredient {
             name: "cheese".to_string(),
             // holy shit that's some cheesy toast
             amount: 2.0,
@@ -81,17 +78,17 @@ mod tests {
         });
     
         let mut eggmuffin = Recipe::new("egg muffin");
-        eggmuffin.ingredients.push(Ingredient {
+        eggmuffin.push(Ingredient {
             name: "egg".to_string(),
             amount: 1.0,
             unit: num.clone()
         });
-        eggmuffin.ingredients.push(Ingredient {
+        eggmuffin.push(Ingredient {
             name: "english muffin".to_string(),
             amount: 1.0,
             unit: num.clone()
         });
-        eggmuffin.ingredients.push(Ingredient {
+        eggmuffin.push(Ingredient {
             name: "cheese".to_string(),
             amount: 5.0,
             unit: g.clone()
