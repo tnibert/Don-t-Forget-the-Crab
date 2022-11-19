@@ -3,7 +3,7 @@ table! {
         id -> Int4,
         recipe_id -> Int4,
         ingredient_name -> Varchar,
-        amount -> Float,
+        amount -> Float4,
         unit -> Varchar,
         notes -> Nullable<Varchar>,
     }

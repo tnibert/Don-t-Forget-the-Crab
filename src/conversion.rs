@@ -5,7 +5,6 @@ use crate::units::*;
 
 // todo: add function/algorithm to determine most appropriate measurement unit to display
 
-
 fn recipes_to_map(recipes: Vec<Recipe>) -> HashMap<String, Vec<Ingredient>> {
     // clone all ingredients from recipes into hashmap of ingredient name to vector of that ingredient
     let mut ingredient_map: HashMap<String, Vec<Ingredient>> = HashMap::new();

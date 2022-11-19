@@ -18,6 +18,7 @@ impl Recipe {
         self.ingredients.push(ingredient);
     }
 
+    // is this the right name, or should the RecipeIterator be giving borrowed values?
     pub fn iter(&self) -> RecipeIterator {
         RecipeIterator {progress: 0,
                         ingredients: self.ingredients.clone()}

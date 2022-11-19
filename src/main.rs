@@ -17,7 +17,7 @@ use dbaccess::*;
 
 fn main() {
     // edit this array for the meal plan
-    let thanksgiving_array = ["Green Bean Casserole", "Cranberry Delight Salad", "Sweet Potato Casserole", "Corn Souffle Casserole", "Broccoli Casserole"];
+    let thanksgiving_array = ["Green Bean Casserole", "Cranberry Delight Salad", "Sweet Potato Casserole"];
 
     let mut recipes = Vec::new();
 
