@@ -61,11 +61,11 @@ INSERT INTO ingredients (recipe_id, ingredient_name, amount, unit) VALUES ((SELE
 INSERT INTO ingredients (recipe_id, ingredient_name, amount, unit) VALUES ((SELECT id FROM recipes where recipe_name='Sweet Potato Casserole'), 'kosher salt', 0.5, 'tsp');
 INSERT INTO ingredients (recipe_id, ingredient_name, amount, unit) VALUES ((SELECT id FROM recipes where recipe_name='Sweet Potato Casserole'), 'eggs', 2.0, '');
 
-INSERT INTO ingredients (recipe_id, ingredient_name, amount, unit) VALUES ((SELECT id FROM recipes where recipe_name='Sweet Potato Casserole'), 'all-purpose flour', 0.5, 'cup');
-INSERT INTO ingredients (recipe_id, ingredient_name, amount, unit) VALUES ((SELECT id FROM recipes where recipe_name='Sweet Potato Casserole'), 'brown sugar', 0.5, 'cup');
-INSERT INTO ingredients (recipe_id, ingredient_name, amount, unit) VALUES ((SELECT id FROM recipes where recipe_name='Sweet Potato Casserole'), 'unsalted butter', 4.0, 'tbsp');
-INSERT INTO ingredients (recipe_id, ingredient_name, amount, unit) VALUES ((SELECT id FROM recipes where recipe_name='Sweet Potato Casserole'), 'kosher salt', 0.25, 'tsp');
-INSERT INTO ingredients (recipe_id, ingredient_name, amount, unit, notes) VALUES ((SELECT id FROM recipes where recipe_name='Sweet Potato Casserole'), 'walnuts', 0.75, 'cup', 'chopped');
+INSERT INTO ingredients (recipe_id, ingredient_name, amount, unit) VALUES ((SELECT id FROM recipes where recipe_name='Sweet Potato Casserole'), 'all-purpose flour', 1.0, 'cup');
+INSERT INTO ingredients (recipe_id, ingredient_name, amount, unit) VALUES ((SELECT id FROM recipes where recipe_name='Sweet Potato Casserole'), 'brown sugar', 1.0, 'cup');
+INSERT INTO ingredients (recipe_id, ingredient_name, amount, unit) VALUES ((SELECT id FROM recipes where recipe_name='Sweet Potato Casserole'), 'unsalted butter', 8.0, 'tbsp');
+INSERT INTO ingredients (recipe_id, ingredient_name, amount, unit) VALUES ((SELECT id FROM recipes where recipe_name='Sweet Potato Casserole'), 'kosher salt', 0.5, 'tsp');
+INSERT INTO ingredients (recipe_id, ingredient_name, amount, unit, notes) VALUES ((SELECT id FROM recipes where recipe_name='Sweet Potato Casserole'), 'walnuts', 1.5, 'cup', 'chopped');
 
 INSERT INTO ingredients (recipe_id, ingredient_name, amount, unit) VALUES ((SELECT id FROM recipes where recipe_name='Corn Souffle Casserole'), 'milk', 0.5, 'cup');
 INSERT INTO ingredients (recipe_id, ingredient_name, amount, unit) VALUES ((SELECT id FROM recipes where recipe_name='Corn Souffle Casserole'), 'heavy cream', 0.5, 'cup');
