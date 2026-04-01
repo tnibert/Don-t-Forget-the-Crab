@@ -2,7 +2,7 @@ pub mod schema;
 pub mod models;
 
 use diesel::prelude::*;
-use diesel::pg::PgConnection;
+use diesel::sqlite::SqliteConnection;
 use dotenv::dotenv;
 use std::env;
 
@@ -14,21 +14,21 @@ use crate::recipe::Recipe;
 use crate::units::get_unit;
 use crate::ingredient::Ingredient;
 
-pub fn establish_connection() -> PgConnection {
+pub fn establish_connection() -> SqliteConnection {
     dotenv().ok();
 
     let database_url = env::var("DATABASE_URL")
         .expect("DATABASE_URL must be set");
-    PgConnection::establish(&database_url)
+    SqliteConnection::establish(&database_url)
         .expect(&format!("Error connecting to {}", database_url))
 }
 
 // todo: unit test
 pub fn get_recipe(name: &str) -> Option<Recipe> {
-    let connection = establish_connection();
+    let connection = &mut establish_connection();
     let recipe_result = recipes::table.filter(recipes::recipe_name.like(name))
         .limit(1)
-        .load::<RecipeModel>(&connection)
+        .load::<RecipeModel>(connection)
         .expect("Error loading recipe");
 
     // todo: is there a better way to get first row without explicitly checking len?
@@ -39,7 +39,7 @@ pub fn get_recipe(name: &str) -> Option<Recipe> {
 
     // todo: is there a better way to join over foreign keys?
     let ingredients_result = ingredients::table.filter(ingredients::recipe_id.eq(recipe_id))
-        .load::<IngredientModel>(&connection)
+        .load::<IngredientModel>(connection)
         .expect("Error loading ingredients");
     
     //println!("{} recipe", recipe_result.len());

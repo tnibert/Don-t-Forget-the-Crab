@@ -1,13 +1,13 @@
 CREATE TABLE recipes (
-  id SERIAL PRIMARY KEY,
+  id INTEGER PRIMARY KEY NOT NULL,
   recipe_name VARCHAR NOT NULL,
   notes VARCHAR,
   UNIQUE(recipe_name)
 );
 
 CREATE TABLE ingredients (
-  id SERIAL PRIMARY KEY,
-  recipe_id SERIAL,
+  id INTEGER PRIMARY KEY NOT NULL,
+  recipe_id INTEGER NOT NULL,
   ingredient_name VARCHAR NOT NULL,
   amount FLOAT4 NOT NULL,
   unit VARCHAR NOT NULL,

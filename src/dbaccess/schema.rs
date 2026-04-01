@@ -1,25 +1,24 @@
-table! {
+// @generated automatically by Diesel CLI.
+
+diesel::table! {
     ingredients (id) {
-        id -> Int4,
-        recipe_id -> Int4,
-        ingredient_name -> Varchar,
-        amount -> Float4,
-        unit -> Varchar,
-        notes -> Nullable<Varchar>,
+        id -> Integer,
+        recipe_id -> Integer,
+        ingredient_name -> Text,
+        amount -> Float,
+        unit -> Text,
+        notes -> Nullable<Text>,
     }
 }
 
-table! {
+diesel::table! {
     recipes (id) {
-        id -> Int4,
-        recipe_name -> Varchar,
-        notes -> Nullable<Varchar>,
+        id -> Integer,
+        recipe_name -> Text,
+        notes -> Nullable<Text>,
     }
 }
 
-joinable!(ingredients -> recipes (recipe_id));
+diesel::joinable!(ingredients -> recipes (recipe_id));
 
-allow_tables_to_appear_in_same_query!(
-    ingredients,
-    recipes,
-);
+diesel::allow_tables_to_appear_in_same_query!(ingredients, recipes,);
