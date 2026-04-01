@@ -111,8 +111,6 @@ mod tests {
     #[test]
     fn test_get_unit() {
         let pound = get_unit("lbs");
-        //assert!(true); 
         assert_eq!(pound.relative_to_base, 453592.4);
-        //assert_ne!(1, 2);
     }
 }
