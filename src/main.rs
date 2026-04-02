@@ -11,6 +11,8 @@ use conversion::*;
 mod dbaccess;
 use dbaccess::*;
 
+mod cliargs;
+
 // todo: remove unnecessary clone() calls throughout program and use the borrow checker correctly
 // todo: encapsulate in modules, remove unnecessary pubs
 
@@ -22,14 +24,17 @@ fn display_available_recipes(names: Vec<String>) {
 }
 
 fn main() {
-    display_available_recipes(list_recipe_names());
+    match cliargs::parse_args() {
+        cliargs::Command::ListRecipes => display_available_recipes(list_recipe_names()),
+        cliargs::Command::CreateShoppingList(recipes) => display_grocery_list(recipes),
+        cliargs::Command::Exit => println!("No arguments provided, exiting")
+    }
+}
 
-    // edit this array for the meal plan
-    let thanksgiving_array = ["Green Bean Casserole", "Cranberry Delight Salad", "Sweet Potato Casserole"];
-
+fn display_grocery_list(recipe_names: Vec<String>) {
     let mut recipes = Vec::new();
 
-    for recipe_name in thanksgiving_array.iter() {
+    for recipe_name in recipe_names.iter() {
         let retrieved_recipe = get_recipe(recipe_name);
         match retrieved_recipe {
             Some(r) => {
@@ -58,9 +63,7 @@ mod tests {
 
     #[test]
     fn test_combination() {
-        // create units
-        //let mg = base_unit(&UnitType::Weight);
-    
+        // create units    
         let g = get_unit("g");
         let kg = get_unit("kg");
         let num = get_unit("");
