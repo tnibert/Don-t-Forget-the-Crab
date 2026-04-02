@@ -14,7 +14,16 @@ use dbaccess::*;
 // todo: remove unnecessary clone() calls throughout program and use the borrow checker correctly
 // todo: encapsulate in modules, remove unnecessary pubs
 
+fn display_available_recipes(names: Vec<String>) {
+    println!("Available recipes:");
+    for recipe_name in names {
+        println!("\t{}", recipe_name);
+    }
+}
+
 fn main() {
+    display_available_recipes(list_recipe_names());
+
     // edit this array for the meal plan
     let thanksgiving_array = ["Green Bean Casserole", "Cranberry Delight Salad", "Sweet Potato Casserole"];
 

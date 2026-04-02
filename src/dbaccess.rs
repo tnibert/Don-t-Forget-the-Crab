@@ -22,7 +22,8 @@ pub fn establish_connection() -> SqliteConnection {
 // todo: unit test
 pub fn get_recipe(name: &str) -> Option<Recipe> {
     let connection = &mut establish_connection();
-    let recipe_result = recipes::table.filter(recipes::recipe_name.like(name))
+    let recipe_result = recipes::table
+        .filter(recipes::recipe_name.like(name))
         .limit(1)
         .load::<RecipeModel>(connection)
         .expect("Error loading recipe");
@@ -37,9 +38,6 @@ pub fn get_recipe(name: &str) -> Option<Recipe> {
     let ingredients_result = ingredients::table.filter(ingredients::recipe_id.eq(recipe_id))
         .load::<IngredientModel>(connection)
         .expect("Error loading ingredients");
-    
-    //println!("{} recipe", recipe_result.len());
-    //println!("{} ingredients", ingredients_result.len());
 
     let mut myrecipe = Recipe::new(&recipe_result[0].recipe_name);
     for i in ingredients_result {
@@ -51,6 +49,16 @@ pub fn get_recipe(name: &str) -> Option<Recipe> {
     }
 
     Some(myrecipe)
+}
+
+pub fn list_recipe_names() -> Vec<String> {
+    let connection = &mut establish_connection();
+    let results = recipes::table
+        .select(RecipeModel::as_select())
+        .load(connection)
+        .expect("Error loading posts");
+
+    results.iter().map(|m| m.recipe_name.clone()).collect()
 }
 
 // todo: add function to add a recipe to the database
